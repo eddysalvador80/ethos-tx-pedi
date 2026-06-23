@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#1E5A8A">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="ETHOS·TX PEDI">
-<title>ETHOS·TX PEDI v4.1.1 — Decisión Transfusional Pediátrica + Casos Docentes</title>
+<title>ETHOS·TX PEDI v4.1 — Decisión Transfusional Pediátrica + Casos Docentes</title>
 <style>
 :root{
 --bg:#F8F7F4;--bgw:#F3F1EC;--sf:#FFF;--sfa:#FAF9F7;
@@ -1589,12 +1589,8 @@ function updateSafetyWarning(){
     warn.innerHTML='';
     return;
   }
-  let html=`<div class="safety-block-banner"><strong>⛔ Esta herramienta NO debe usarse en este paciente.</strong><br>Condiciones identificadas que requieren protocolos específicos:<ul>`;
-  activeKeys.forEach(k=>{
-    const info=SAFETY_INFO[k];
-    html+=`<li><strong>${info.nombre}:</strong> ${info.accion}</li>`;
-  });
-  html+=`</ul></div>`;
+  const items=activeKeys.map(k=>`<li><strong>${SAFETY_INFO[k].nombre}:</strong> ${SAFETY_INFO[k].accion} <em>(${SAFETY_INFO[k].ref})</em></li>`).join('');
+  let html=`<div class="safety-block-banner"><strong>⛔ Esta herramienta NO debe usarse en este paciente.</strong><br>Condiciones identificadas que requieren protocolos específicos:<ul>${items}</ul></div>`;
   warn.innerHTML=html;
   warn.style.display='block';
 }
